@@ -47,4 +47,5 @@ client.on('interactionCreate', async interaction => {
     }
   }
 });
+
 client.login(process.env.TOKEN);
