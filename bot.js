@@ -69,7 +69,7 @@ client.on('interactionCreate', async interaction => {
       query.level = { $gte: interaction.options.getInteger('level') }
     }
     const jobsData = await Job.find(query)
-    if (filteredData.length) {
+    if (jobsData.length) {
       await interaction.reply(`Voici les artisans pour le métier ${job.name}: ${jobsData.map(x => `\n- <@${x.userId}> niveau ${x.level}`)}`);
     } else {
       await interaction.reply('Aucun artisan trouvé !');
