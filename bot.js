@@ -56,18 +56,18 @@ client.on('interactionCreate', async interaction => {
 
     const job = interaction.options.getString('job')
     const level = interaction.options.getInteger('level') || 0
-    const jobs = data.filter(x => x.job === job && x.level >= level).sort((a, b) => b.level - a.level)
-    if (jobs.length) {
-      await interaction.reply(`Voici les artisans pour le métier ${job}: ${jobs.map(x => `\n- <@${x.userId}> niveau ${x.level}`)}`);
+    const filteredData = data.filter(x => x.job === job && x.level >= level).sort((a, b) => b.level - a.level)
+    if (filteredData.length) {
+      await interaction.reply(`Voici les artisans pour le métier ${job}: ${filteredData.map(x => `\n- <@${x.userId}> niveau ${x.level}`)}`);
     } else {
       await interaction.reply('Aucun artisan trouvé !');
     }
   }
 
   if (interaction.commandName === commandKey.MYJOB) {
-    const jobs = data.filter(x => x.userId === interaction.user.id)
-    if (jobs.length) {
-      await interaction.reply(`Voici tes métiers: ${jobs.map(x => `\n- ${x.job} niveau ${x.level}`)}`);
+    const filteredData = data.filter(x => x.userId === interaction.user.id)
+    if (filteredData.length) {
+      await interaction.reply(`Voici tes métiers: ${filteredData.map(x => `\n- ${x.job} niveau ${x.level}`)}`);
     } else {
       await interaction.reply('Aucun métier trouvé !');
     }
