@@ -4,6 +4,7 @@ const commandKey = {
   DELETEJOB: 'deletejob',
   FINDJOB: 'findjob',
   MYJOBS: 'myjobs',
+  HELP: 'help'
 }
 
 const jobs = [

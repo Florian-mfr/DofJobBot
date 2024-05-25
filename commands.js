@@ -139,12 +139,17 @@ const findCommand = new SlashCommandBuilder()
 const myJobsCommand = new SlashCommandBuilder()
     .setName('myjobs')
     .setDescription('Affiche les métiers enregistrés');
+
+const helpCommand = new SlashCommandBuilder()
+    .setName('help')
+    .setDescription('Affiche la liste des commandes');
           
 const commands = [
   setCommand,
   deleteCommand,
   findCommand,
   myJobsCommand,
+  helpCommand,
 ];
 
 module.exports = {
