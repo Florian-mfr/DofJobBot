@@ -17,6 +17,8 @@ const setCommand = new SlashCommandBuilder()
             .addIntegerOption(option =>
               option.setName('level')
                   .setDescription('Le niveau du métier')
+                  .min_value(1)
+                  .max_value(100)
                   .setRequired(true)
             ))
     .addSubcommand(subcommand =>
@@ -32,6 +34,8 @@ const setCommand = new SlashCommandBuilder()
             .addIntegerOption(option =>
                 option.setName('level')
                     .setDescription('Le niveau du métier')
+                    .min_value(1)
+                    .max_value(100)
                     .setRequired(true)
             ))
     .addSubcommand(subcommand =>
@@ -47,6 +51,8 @@ const setCommand = new SlashCommandBuilder()
           .addIntegerOption(option =>
               option.setName('level')
                   .setDescription('Le niveau du métier')
+                  .min_value(1)
+                  .max_value(100)
                   .setRequired(true)
           ));
 
@@ -103,6 +109,8 @@ const findCommand = new SlashCommandBuilder()
             .addIntegerOption(option =>
                 option.setName('level')
                     .setDescription('Le niveau minimum')
+                    .min_value(1)
+                    .max_value(100)
                     .setRequired(false)
             ))
     .addSubcommand(subcommand =>
@@ -118,6 +126,8 @@ const findCommand = new SlashCommandBuilder()
             .addIntegerOption(option =>
                 option.setName('level')
                     .setDescription('Le niveau minimum')
+                    .min_value(1)
+                    .max_value(100)
                     .setRequired(false)
             ))
     .addSubcommand(subcommand =>
@@ -133,6 +143,8 @@ const findCommand = new SlashCommandBuilder()
           .addIntegerOption(option =>
               option.setName('level')
                   .setDescription('Le niveau minimum')
+                  .min_value(1)
+                  .max_value(100)
                   .setRequired(false)
           ));
 
