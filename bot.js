@@ -1,4 +1,4 @@
-const { commands, commandKey, jobs } = require('./commands');
+const { commandKey, jobs } = require('./constants');
 const { Client, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const http = require('http');
@@ -15,6 +15,11 @@ client.on('interactionCreate', async interaction => {
   if (!interaction.isCommand()) return;
 
   if (interaction.commandName === commandKey.SETJOB) {
+    if (!jobs.some(job => job.value === interaction.options.getString('job'))) {
+      await interaction.reply('Métier inconnu !');
+      return;
+    }
+
     const job = data.find(x => x.userId === interaction.user.id && x.job === interaction.options.getString('job'))
     if (job) {
       job.level = interaction.options.getInteger('level')
@@ -25,10 +30,15 @@ client.on('interactionCreate', async interaction => {
         level: interaction.options.getInteger('level')
       })
     }
-    await interaction.reply('Métier enregistré !');
+    await interaction.reply(`Ton métier ${interaction.options.getString('job')} niveau ${interaction.options.getInteger('level')} a été enregistré !`);
   }
 
   if (interaction.commandName === commandKey.DELETEJOB) {
+    if (!jobs.some(job => job.value === interaction.options.getString('job'))) {
+      await interaction.reply('Métier inconnu !');
+      return;
+    }
+
     const jobIndex = data.findIndex(x => x.userId === interaction.user.id && x.job === interaction.options.getString('job'))
     if (jobIndex !== -1) {
       data.splice(jobIndex, 1)
@@ -39,13 +49,27 @@ client.on('interactionCreate', async interaction => {
   }
 
   if (interaction.commandName === commandKey.FINDJOB) {
+    if (!jobs.some(job => job.value === interaction.options.getString('job'))) {
+      await interaction.reply('Métier inconnu !');
+      return;
+    }
+
     const job = interaction.options.getString('job')
     const level = interaction.options.getInteger('level') || 0
-    const jobs = data.filter(x => x.job === job && x.level >= level)
+    const jobs = data.filter(x => x.job === job && x.level >= level).sort((a, b) => b.level - a.level)
     if (jobs.length) {
-      await interaction.reply(`Voici les artisans pour le métier ${job}: ${jobs.map(x => `\n<@${x.userId}> niveau ${x.level}`)}`);
+      await interaction.reply(`Voici les artisans pour le métier ${job}: ${jobs.map(x => `\n- <@${x.userId}> niveau ${x.level}`)}`);
     } else {
       await interaction.reply('Aucun artisan trouvé !');
+    }
+  }
+
+  if (interaction.commandName === commandKey.MYJOB) {
+    const jobs = data.filter(x => x.userId === interaction.user.id)
+    if (jobs.length) {
+      await interaction.reply(`Voici tes métiers: ${jobs.map(x => `\n- ${x.job} niveau ${x.level}`)}`);
+    } else {
+      await interaction.reply('Aucun métier trouvé !');
     }
   }
 });
