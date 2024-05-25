@@ -23,7 +23,7 @@ client.on('interactionCreate', async interaction => {
         await interaction.reply('Métier inconnu !');
         return;
       }
-      const userJob = Job.findOne({ userId: interaction.user.id, job: job.value })
+      const userJob = await Job.findOne({ userId: interaction.user.id, job: job.value })
       if (userJob) {
         userJob.level = interaction.options.getInteger('level')
         await userJob.save()
@@ -48,7 +48,7 @@ client.on('interactionCreate', async interaction => {
       await interaction.reply('Métier inconnu !');
       return;
     }
-    const userJob = Job.findOne({ userId: interaction.user.id, job: job.value })
+    const userJob = await Job.findOne({ userId: interaction.user.id, job: job.value })
     if (userJob) {
       await userJob.delete()
       await interaction.reply('Métier supprimé !');
@@ -68,7 +68,7 @@ client.on('interactionCreate', async interaction => {
     if (interaction.options.getInteger('level')) {
       query.level = { $gte: interaction.options.getInteger('level') }
     }
-    const jobsData = Job.find(query)
+    const jobsData = await Job.find(query)
     if (filteredData.length) {
       await interaction.reply(`Voici les artisans pour le métier ${job.name}: ${jobsData.map(x => `\n- <@${x.userId}> niveau ${x.level}`)}`);
     } else {
@@ -77,7 +77,7 @@ client.on('interactionCreate', async interaction => {
   }
 
   if (interaction.commandName === commandKey.MYJOBS) {
-    const jobsData = Job.find({ userId: interaction.user.id })
+    const jobsData = await Job.find({ userId: interaction.user.id })
     if (jobsData.length) {
       await interaction.reply(`Métiers de <@${interaction.user.id}>: ${jobsData.map(x => `\n- ${x.job} niveau ${x.level}`)}`);
     } else {
