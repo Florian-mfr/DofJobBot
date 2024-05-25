@@ -3,7 +3,7 @@ const commandKey = {
   SETJOB: 'setjob',
   DELETEJOB: 'deletejob',
   FINDJOB: 'findjob',
-  MYJOB: 'myjob',
+  MYJOBS: 'myjobs',
 }
 
 const jobs = [

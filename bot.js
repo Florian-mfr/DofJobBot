@@ -64,7 +64,7 @@ client.on('interactionCreate', async interaction => {
     }
   }
 
-  if (interaction.commandName === commandKey.MYJOB) {
+  if (interaction.commandName === commandKey.MYJOBS) {
     const filteredData = data.filter(x => x.userId === interaction.user.id)
     if (filteredData.length) {
       await interaction.reply(`Voici tes métiers: ${filteredData.map(x => `\n- ${x.job} niveau ${x.level}`)}`);
