@@ -79,7 +79,7 @@ client.on('interactionCreate', async interaction => {
   if (interaction.commandName === commandKey.MYJOBS) {
     const jobsData = await Job.find({ userId: interaction.user.id })
     if (jobsData.length) {
-      await interaction.reply(`Métiers de <@${interaction.user.id}>: ${jobsData.map(x => `\n- ${x.job} niveau ${x.level}`)}`);
+      await interaction.reply(`Métiers de <@${interaction.user.id}>: ${jobsData.map(x => `\n- ${jobs.find(job => job.value === x.job).name} niveau ${x.level}`)}`);
     } else {
       await interaction.reply('Aucun métier trouvé !');
     }
