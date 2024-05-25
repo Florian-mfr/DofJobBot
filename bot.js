@@ -29,9 +29,9 @@ client.on('interactionCreate', async interaction => {
         await userJob.save()
       } else {
         const newJob = new Job({
-          userId,
-          job,
-          level
+          userId: interaction.user.id,
+          job: job.value,
+          level: interaction.options.getInteger('level')
         })
         await newJob.save()
       }
